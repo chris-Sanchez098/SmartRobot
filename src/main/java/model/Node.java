@@ -106,19 +106,22 @@ public class Node {
     public Integer[] nextPlace(Integer direction) {
         Integer[] nextPlace = new Integer[2];
         switch (direction) {
-            case 1: //right
+            case 1 -> { //right
                 nextPlace[0] = place[0];
                 nextPlace[1] = place[1] + 1;
-
-            case 2: //left
+            }
+            case 2 -> { //left
                 nextPlace[0] = place[0];
                 nextPlace[1] = place[1] - 1;
-            case 3: //up
+            }
+            case 3 -> { //up
                 nextPlace[0] = place[0] - 1;
                 nextPlace[1] = place[1];
-            default: //down
+            }
+            default -> { //down
                 nextPlace[0] = place[0] + 1;
                 nextPlace[1] = place[1];
+            }
         }
         return nextPlace;
     }
@@ -180,6 +183,9 @@ public class Node {
         Integer auxNav = getNav();
         Node node = parent;
         Integer[] nextPlace = nextPlace(direction);
+        if(nav == 10 || nav == 20){
+            return false;
+        }
         while (node != null) {
             if (nextPlace[0] == node.getPlace()[0] && nextPlace[1] == node.getPlace()[1] && auxNav == 0) {
                 return true;
