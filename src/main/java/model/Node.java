@@ -48,52 +48,27 @@ public class Node {
     }
 
     public Boolean possibleMove(Integer direction) {
-        if (parent == null || nav == 10 || nav == 20) {
-            switch (direction) {
-                case 1: //right
-                    if (place[1] == 9 || map[place[0]][place[1] + 1] == 1) {
-                        return false;
-                    }
-                    break;
-                case 2: //left
-                    if (place[1] == 0 || map[place[0]][place[1] - 1] == 1) {
-                        return false;
-                    }
-                    break;
-                case 3: //up
-                    if (place[0] == 0 || map[place[0] - 1][place[1]] == 1) {
-                        return false;
-                    }
-                    break;
-                default: //down
-                    if (place[0] == 9 || map[place[0] + 1][place[1]] == 1) {
-                        return false;
-                    }
-                    break;
-            }
-        } else {
-            switch (direction) {
-                case 1: //right
-                    if (place[1] == 9 || map[place[0]][place[1] + 1] == 1 || place[1] + 1 == parent.getPlace()[1]) {
-                        return false;
-                    }
-                    break;
-                case 2: //left
-                    if (place[1] == 0 || map[place[0]][place[1] - 1] == 1 || place[1] - 1 == parent.getPlace()[1]) {
-                        return false;
-                    }
-                    break;
-                case 3: //up
-                    if (place[0] == 0 || map[place[0] - 1][place[1]] == 1 || place[0] - 1 == parent.getPlace()[0]) {
-                        return false;
-                    }
-                    break;
-                default: //down
-                    if (place[0] == 9 || map[place[0] + 1][place[1]] == 1 || place[0] + 1 == parent.getPlace()[0]) {
-                        return false;
-                    }
-                    break;
-            }
+        switch (direction) {
+            case 1: //right
+                if (place[1] == 9 || map[place[0]][place[1] + 1] == 1) {
+                    return false;
+                }
+                break;
+            case 2: //left
+                if (place[1] == 0 || map[place[0]][place[1] - 1] == 1) {
+                    return false;
+                }
+                break;
+            case 3: //up
+                if (place[0] == 0 || map[place[0] - 1][place[1]] == 1) {
+                    return false;
+                }
+                break;
+            default: //down
+                if (place[0] == 9 || map[place[0] + 1][place[1]] == 1) {
+                    return false;
+                }
+                break;
         }
         return true;
     }
@@ -106,27 +81,9 @@ public class Node {
 
 
     public Integer nextItem(Integer direction) {
-        switch (direction) {
-            case 1: //right
-                if (map[place[0]][place[1] + 1] == 5) {
-                    return item + 1;
-                }
-                break;
-            case 2: //left
-                if (map[place[0]][place[1] - 1] == 5) {
-                    return item + 1;
-                }
-                break;
-            case 3: //up
-                if (map[place[0] - 1][place[1]] == 5) {
-                    return item + 1;
-                }
-                break;
-            default: //down
-                if (map[place[0] + 1][place[1]] == 5) {
-                    return item + 1;
-                }
-                break;
+        Integer[] nextPlace = nextPlace(direction);
+        if (map[nextPlace[0]][nextPlace[1]] == 5) {
+            return item + 1;
         }
         return item;
     }
@@ -137,10 +94,10 @@ public class Node {
             return nav - 1;
         }
         Integer[] nextPlace = nextPlace(direction);
-        if(map[nextPlace[0]][nextPlace[1]] == 3){
+        if (map[nextPlace[0]][nextPlace[1]] == 3) {
             return 20;
         }
-        if(map[nextPlace[0]][nextPlace[1]] == 4){
+        if (map[nextPlace[0]][nextPlace[1]] == 4) {
             return 10;
         }
         return 0;
@@ -183,6 +140,17 @@ public class Node {
         }
         return 1;
     }
+
+    public boolean isFather(Integer direction) {
+
+        Integer[] nextPlace = nextPlace(direction);
+        if (parent == null || nav == 10 || nav == 20) {
+            return false;
+        } else {
+            return nextPlace[0] == parent.getPlace()[0] && nextPlace[1] == parent.getPlace()[1];
+        }
+    }
+
     public void viewMap() {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
@@ -190,5 +158,37 @@ public class Node {
             }
             System.out.println("");
         }
+    }
+
+    public static Integer[] initialPlace(Integer[][] newMap) {
+        if (newMap == null) {
+            return null;
+        }
+        Integer[] place = new Integer[2];
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (newMap[i][j] == 2) {
+                    place[0] = i;
+                    place[1] = j;
+                }
+            }
+        }
+        return place;
+    }
+
+    public Boolean isAncestor(Integer direction) {
+        Integer auxNav = getNav();
+        Node node = parent;
+        Integer[] nextPlace = nextPlace(direction);
+        while (node != null) {
+            if (nextPlace[0] == node.getPlace()[0] && nextPlace[1] == node.getPlace()[1] && auxNav == 0) {
+                return true;
+            }
+            if (auxNav > 0){
+                auxNav--;
+            }
+            node = node.getParent();
+        }
+        return false;
     }
 }
