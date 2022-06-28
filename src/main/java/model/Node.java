@@ -195,18 +195,14 @@ public class Node {
     }
 
     public Boolean isAncestor(Integer direction) {
-        Integer auxNav = getNav();
         Node node = parent;
         Integer[] nextPlace = nextPlace(direction);
-        if(nav == 10 || nav == 20){
+        if(isFather(direction) && nav == 10 || nav == 20){
             return false;
         }
         while (node != null) {
-            if (nextPlace[0] == node.getPlace()[0] && nextPlace[1] == node.getPlace()[1] && auxNav == 0) {
+            if (nextPlace[0] == node.getPlace()[0] && nextPlace[1] == node.getPlace()[1]) {
                 return true;
-            }
-            if (auxNav > 0){
-                auxNav--;
             }
             node = node.getParent();
         }
