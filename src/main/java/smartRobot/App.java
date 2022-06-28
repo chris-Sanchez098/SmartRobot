@@ -19,7 +19,6 @@ public class App extends Application {
         stage.show();
         stage.setResizable(false);
     }
-
     private static Parent loadFXML() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/views/map" + ".fxml"));
         return fxmlLoader.load();
