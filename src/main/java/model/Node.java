@@ -9,6 +9,21 @@ public class Node {
     private Integer[] place;
     private Integer nav;
 
+    private Integer heurist = 0;
+    private Integer[][] goals;
+
+    public Node(Integer[][] map, Node parent, Integer deep, Integer cost, Integer item, Integer nav, Integer[] place, Integer[][] goals) {
+        this.map = map;
+        this.parent = parent;
+        this.deep = deep;
+        this.cost = cost;
+        this.item = item;
+        this.place = place;
+        this.nav = nav;
+        this.goals = goals;
+        this.heurist = setHeurist();
+    }
+
     public Node(Integer[][] map, Node parent, Integer deep, Integer cost, Integer item, Integer nav, Integer[] place) {
         this.map = map;
         this.parent = parent;
@@ -196,5 +211,27 @@ public class Node {
             node = node.getParent();
         }
         return false;
+    }
+
+    private Integer setHeurist(){
+        Integer auxHeurist = 0;
+
+        if(map[goals[0][0]][goals[0][1]] == 5){
+            auxHeurist += manhattan(0);
+        }
+        if(map[goals[1][0]][goals[1][1]] == 5){
+            auxHeurist += manhattan(1);
+        }
+        return auxHeurist;
+    }
+
+    private Integer manhattan(Integer goal){
+        Integer x = (goals[goal][1] > place[1]) ? goals[goal][1] - place[1]: place[1] - goals[goal][1];
+        Integer y = (goals[goal][0] > place[0]) ? goals[goal][0] - place[0]: place[0] - goals[goal][0];
+        return x + y;
+    }
+
+    public Integer sumCH(){
+        return cost + heurist;
     }
 }

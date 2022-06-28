@@ -1,11 +1,8 @@
 package smartRobot;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import model.BFS;
+import model.CUS;
+import model.Node;
 
 import java.io.IOException;
 
@@ -33,7 +30,30 @@ public class App {
     }
     */
     public static void main(String[] args) {
-        //launch();
+        Integer[][] matriz;
+        matriz = new Integer[][]{
+                {0, 0, 0, 0, 0, 5, 1, 1, 4, 0},
+                {0, 1, 1, 1, 1, 0, 1, 1, 1, 0},
+                {0, 0, 2, 6, 6, 0, 0, 0, 0, 0},
+                {1, 6, 1, 1, 1, 1, 0, 1, 1, 6},
+                {1, 6, 1, 1, 1, 1, 0, 1, 1, 6},
+                {1, 6, 1, 0, 0, 0, 0, 0, 0, 3},
+                {1, 6, 1, 0, 1, 1, 1, 1, 0, 1},
+                {1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 1, 0, 1, 0, 1, 1, 1, 1},
+                {1, 0, 0, 0, 6, 6, 6, 0, 0, 5}};
+        CUS cost = new CUS(matriz);
+        Node node = cost.getSolution();
+        System.out.println("Termino");
+        System.out.println(node.getCost());
+        System.out.println(node.getItem());
+        System.out.println(node.getNav());
+        Integer[][] mapita = node.getMap();
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                System.out.print(mapita[i][j]+ " ");
+            }
+            System.out.println("");
+        }
     }
-
 }
