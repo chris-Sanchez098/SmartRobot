@@ -9,7 +9,7 @@ public class Node {
     private Integer[] place;
     private Integer nav;
 
-    private Integer heurist = 0;
+    private Double heurist = 0.0;
     private Integer[][] goals;
 
     public Node(Integer[][] map, Node parent, Integer deep, Integer cost, Integer item, Integer nav, Integer[] place, Integer[][] goals) {
@@ -60,6 +60,18 @@ public class Node {
 
     public Integer getNav() {
         return nav;
+    }
+
+    public Double sumCH() {
+        return cost + heurist;
+    }
+
+    public Double getHeurist() {
+        return heurist;
+    }
+
+    public Integer[][] getGoals() {
+        return goals;
     }
 
     public Boolean possibleMove(Integer direction) {
@@ -152,13 +164,6 @@ public class Node {
         return nextMap;
     }
 
-    private Integer calCost(Integer type) {
-        if (type == 6 && nav == 0) {
-            return 4;
-        }
-        return 1;
-    }
-
     public boolean isFather(Integer direction) {
 
         Integer[] nextPlace = nextPlace(direction);
@@ -178,6 +183,21 @@ public class Node {
         }
     }
 
+    public Boolean isAncestor(Integer direction) {
+        Node node = parent;
+        Integer[] nextPlace = nextPlace(direction);
+        if (isFather(direction) && nav == 10 || nav == 20) {
+            return false;
+        }
+        while (node != null) {
+            if (nextPlace[0] == node.getPlace()[0] && nextPlace[1] == node.getPlace()[1]) {
+                return true;
+            }
+            node = node.getParent();
+        }
+        return false;
+    }
+
     public static Integer[] initialPlace(Integer[][] newMap) {
         if (newMap == null) {
             return null;
@@ -194,40 +214,47 @@ public class Node {
         return place;
     }
 
-    public Boolean isAncestor(Integer direction) {
-        Node node = parent;
-        Integer[] nextPlace = nextPlace(direction);
-        if(isFather(direction) && nav == 10 || nav == 20){
-            return false;
-        }
-        while (node != null) {
-            if (nextPlace[0] == node.getPlace()[0] && nextPlace[1] == node.getPlace()[1]) {
-                return true;
+    public static Integer[][] findGoals(Integer[][] newMap,int size){
+        Integer[][] auxGoals = new Integer[2][2];
+        int n = 0;
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (newMap[i][j] == 5) {
+                    auxGoals[n][0] = i;
+                    auxGoals[n][1] = j;
+                    n++;
+                    if(n == size){
+                        break;
+                    }
+                }
             }
-            node = node.getParent();
         }
-        return false;
+        return auxGoals;
     }
 
-    private Integer setHeurist(){
-        Integer auxHeurist = 0;
+    private Double setHeurist() {
+        double auxHeurist = 0.0;
 
-        if(map[goals[0][0]][goals[0][1]] == 5){
-            auxHeurist += manhattan(0);
+        if (map[goals[0][0]][goals[0][1]] == 5) {
+            auxHeurist += manhattan(0)/4;
         }
-        if(map[goals[1][0]][goals[1][1]] == 5){
-            auxHeurist += manhattan(1);
+        if (map[goals[1][0]][goals[1][1]] == 5) {
+            auxHeurist += manhattan(1)/4;
         }
         return auxHeurist;
     }
 
-    private Integer manhattan(Integer goal){
-        Integer x = (goals[goal][1] > place[1]) ? goals[goal][1] - place[1]: place[1] - goals[goal][1];
-        Integer y = (goals[goal][0] > place[0]) ? goals[goal][0] - place[0]: place[0] - goals[goal][0];
-        return x + y;
+    private Double manhattan(Integer goal) {
+        Integer x = (goals[goal][1] > place[1]) ? goals[goal][1] - place[1] : place[1] - goals[goal][1];
+        Integer y = (goals[goal][0] > place[0]) ? goals[goal][0] - place[0] : place[0] - goals[goal][0];
+        return (double) (x + y);
     }
 
-    public Integer sumCH(){
-        return cost + heurist;
+    private Integer calCost(Integer type) {
+        if (type == 6 && nav == 0) {
+            return 4;
+        }
+        return 1;
     }
+
 }
