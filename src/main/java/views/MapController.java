@@ -15,10 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.BFS;
-import model.CUS;
-import model.DFS;
-import model.Node;
+import model.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -109,27 +106,41 @@ public class MapController implements Initializable {
      */
     public void initCB() {
         ObservableList<String> option =
-                FXCollections.observableArrayList("", "Amplitud", "Costo uniforme", "Profundidad evitando ciclos");
+                FXCollections.observableArrayList("Selection", "Amplitud", "Costo uniforme",
+                        "Profundidad evitando ciclos","Avara","A*");
         cbSelect.setItems(option);
         cbSelect.getSelectionModel().selectFirst();
     }
 
     public Integer[][] solution() {
         Node node;
-        if (cbSelect.getSelectionModel().getSelectedItem().contains("Amplitud")) {
-            BFS bfs = new BFS(map);
-            node = bfs.getSolution();
-            return node.getMap();
-        }
-        if (cbSelect.getSelectionModel().getSelectedItem().contains("Costo uniforme")) {
-            CUS cus = new CUS(map);
-            node = cus.getSolution();
-            return node.getMap();
-        }
-        if (cbSelect.getSelectionModel().getSelectedItem().contains("Profundidad evitando ciclos")) {
-            DFS dfs = new DFS(map);
-            node = dfs.getSolution();
-            return node.getMap();
+        int selection = cbSelect.getSelectionModel().getSelectedIndex();
+        switch (selection){
+            case 1 -> {
+                BFS bfs = new BFS(map);
+                node = bfs.getSolution();
+                return node.getMap();
+            }
+            case 2 -> {
+                CUS cus = new CUS(map);
+                node = cus.getSolution();
+                return node.getMap();
+            }
+            case 3 -> {
+                DFS dfs = new DFS(map);
+                node = dfs.getSolution();
+                return node.getMap();
+            }
+            case 4 -> {
+                Greedy greedy = new Greedy(map);
+                node = greedy.getSolution();
+                return node.getMap();
+            }
+            case 5 -> {
+                AStart aStart = new AStart(map);
+                node = aStart.getSolution();
+                node.getMap();
+            }
         }
         return null;
     }

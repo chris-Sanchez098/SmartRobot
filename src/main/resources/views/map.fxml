@@ -10,7 +10,7 @@
    <children>
       <Pane fx:id="pane" layoutX="20.0" layoutY="13.0" opacity="0.84" prefHeight="500.0" prefWidth="500.0" />
       <Button fx:id="bUploadMap" layoutX="522.0" layoutY="38.0" mnemonicParsing="false" onAction="#onClickChange" text="Cargar mapa" />
-      <Button fx:id="bStart" layoutX="520.0" layoutY="104.0" mnemonicParsing="false" onAction="#onClick" text="Iniciar" />
+      <Button fx:id="bStart" layoutX="642.0" layoutY="38.0" mnemonicParsing="false" onAction="#onClick" text="Iniciar" />
       <ComboBox fx:id="cbSelect" layoutX="520.0" layoutY="72.0" prefHeight="24.0" prefWidth="199.0" />
    </children>
    <opaqueInsets>
