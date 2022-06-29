@@ -9,7 +9,7 @@ public class Node {
     private Integer[] place;
     private Integer nav;
 
-    private Double heurist = 0.0;
+    private Integer heuristic = 0;
     private Integer[][] goals;
 
     public Node(Integer[][] map, Node parent, Integer deep, Integer cost, Integer item, Integer nav, Integer[] place, Integer[][] goals) {
@@ -21,7 +21,7 @@ public class Node {
         this.place = place;
         this.nav = nav;
         this.goals = goals;
-        this.heurist = setHeurist();
+        this.heuristic = setHeuristic();
     }
 
     public Node(Integer[][] map, Node parent, Integer deep, Integer cost, Integer item, Integer nav, Integer[] place) {
@@ -62,12 +62,12 @@ public class Node {
         return nav;
     }
 
-    public Double sumCH() {
-        return cost + heurist;
+    public Integer sumCH() {
+        return cost + heuristic;
     }
 
-    public Double getHeurist() {
-        return heurist;
+    public Integer getHeuristic() {
+        return heuristic;
     }
 
     public Integer[][] getGoals() {
@@ -244,22 +244,22 @@ public class Node {
         return auxGoals;
     }
 
-    private Double setHeurist() {
-        double auxHeurist = 0.0;
+    private Integer setHeuristic() {
+        int auxHeuristic = 0;
 
         if (map[goals[0][0]][goals[0][1]] == 5) {
-            auxHeurist += manhattan(0);
+            auxHeuristic += manhattan(0);
         }
         if (map[goals[1][0]][goals[1][1]] == 5) {
-            auxHeurist += manhattan(1);
+            auxHeuristic += manhattan(1);
         }
-        return auxHeurist;
+        return auxHeuristic;
     }
 
-    private Double manhattan(Integer goal) {
+    private Integer manhattan(Integer goal) {
         Integer x = (goals[goal][1] > place[1]) ? goals[goal][1] - place[1] : place[1] - goals[goal][1];
         Integer y = (goals[goal][0] > place[0]) ? goals[goal][0] - place[0] : place[0] - goals[goal][0];
-        return (double) (x + y);
+        return x + y;
     }
 
     private Integer calCost(Integer type) {
@@ -268,5 +268,4 @@ public class Node {
         }
         return 1;
     }
-
 }
