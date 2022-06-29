@@ -167,7 +167,9 @@ public class Node {
     public boolean isFather(Integer direction) {
 
         Integer[] nextPlace = nextPlace(direction);
-        if (parent == null || nav == 10 || nav == 20) {
+        if (parent == null) {
+            return false;
+        } else if (nav == 10 && parent.getNav() != 11 || nav == 20) {
             return false;
         } else {
             return nextPlace[0] == parent.getPlace()[0] && nextPlace[1] == parent.getPlace()[1];
@@ -186,7 +188,7 @@ public class Node {
     public Boolean isAncestor(Integer direction) {
         Node node = parent;
         Integer[] nextPlace = nextPlace(direction);
-        if (isFather(direction) && nav == 10 || nav == 20) {
+        if (isFather(direction) && (nav == 10 && parent.getNav() != 11) || nav == 20) {
             return false;
         }
         while (node != null) {
@@ -196,6 +198,16 @@ public class Node {
             node = node.getParent();
         }
         return false;
+    }
+
+    public Node nextNode(Integer direction) {
+        return new Node(this.nextMap(direction), this, this.getDeep() + 1, this.nextCost(direction),
+                this.nextItem(direction), this.nextNav(direction), this.nextPlace(direction));
+    }
+
+    public Node nextNodeH(Integer direction) {
+        return new Node(this.nextMap(direction), this, this.getDeep() + 1, this.nextCost(direction),
+                this.nextItem(direction), this.nextNav(direction), this.nextPlace(direction), this.getGoals());
     }
 
     public static Integer[] initialPlace(Integer[][] newMap) {
@@ -214,7 +226,7 @@ public class Node {
         return place;
     }
 
-    public static Integer[][] findGoals(Integer[][] newMap,int size){
+    public static Integer[][] findGoals(Integer[][] newMap, int size) {
         Integer[][] auxGoals = new Integer[2][2];
         int n = 0;
         for (int i = 0; i < 10; i++) {
@@ -223,7 +235,7 @@ public class Node {
                     auxGoals[n][0] = i;
                     auxGoals[n][1] = j;
                     n++;
-                    if(n == size){
+                    if (n == size) {
                         break;
                     }
                 }
@@ -236,12 +248,12 @@ public class Node {
         double auxHeurist = 0.0;
 
         if (map[goals[0][0]][goals[0][1]] == 5) {
-            auxHeurist += manhattan(0)/4;
+            auxHeurist += manhattan(0);
         }
         if (map[goals[1][0]][goals[1][1]] == 5) {
-            auxHeurist += manhattan(1)/4;
+            auxHeurist += manhattan(1);
         }
-        return auxHeurist;
+        return auxHeurist/4;
     }
 
     private Double manhattan(Integer goal) {

@@ -24,8 +24,7 @@ public class CUS {
             }
             for (int i = 1; i < 5; i++) {
                 if (node.possibleMove(i) && !node.isFather(i)) {
-                    pq.add(new Node(node.nextMap(i), node, node.getDeep() + 1, node.nextCost(i),
-                            node.nextItem(i), node.nextNav(i), node.nextPlace(i)));
+                    pq.add(node.nextNode(i));
                 }
             }
         }

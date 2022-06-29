@@ -24,9 +24,8 @@ public class AStart {
                 return node;
             }
             for (int i = 1; i < 5; i++) {
-                if (node.possibleMove(i)  && !node.isAncestor(i)) {
-                    pq.add(new Node(node.nextMap(i), node, node.getDeep() + 1, node.nextCost(i),
-                            node.nextItem(i), node.nextNav(i), node.nextPlace(i), node.getGoals()));
+                if (node.possibleMove(i)  && !node.isFather(i)) {
+                    pq.add(node.nextNodeH(i));
                 }
             }
         }

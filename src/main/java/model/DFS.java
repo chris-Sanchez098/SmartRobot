@@ -24,8 +24,7 @@ public class DFS {
             }
             for (int i = 1; i < 5; i++) {
                 if (node.possibleMove(i) && !node.isAncestor(i)) {
-                    stack.push(new Node(node.nextMap(i), node, node.getDeep() + 1, node.nextCost(i),
-                            node.nextItem(i), node.nextNav(i), node.nextPlace(i)));
+                    stack.push(node.nextNode(i));
                 }
             }
         }

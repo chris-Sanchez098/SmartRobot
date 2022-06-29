@@ -24,8 +24,7 @@ public class BFS {
             }
             for (int i = 1; i < 5; i++) {
                 if (node.possibleMove(i) && !node.isFather(i)) {
-                    queue.add(new Node(node.nextMap(i), node, node.getDeep() + 1, node.nextCost(i),
-                            node.nextItem(i), node.nextNav(i), node.nextPlace(i)));
+                    queue.add(node.nextNode(i));
                 }
             }
         }
