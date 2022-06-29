@@ -16,7 +16,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         Scene scene = new Scene(loadFXML());
         stage.setScene(scene);
-        stage.setTitle("");
+        stage.setTitle("Smart Robot");
         stage.show();
         stage.setResizable(false);
     }

@@ -253,7 +253,7 @@ public class Node {
         if (map[goals[1][0]][goals[1][1]] == 5) {
             auxHeurist += manhattan(1);
         }
-        return auxHeurist/4;
+        return auxHeurist;
     }
 
     private Double manhattan(Integer goal) {

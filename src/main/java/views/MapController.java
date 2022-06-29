@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
+
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -112,34 +113,46 @@ public class MapController implements Initializable {
         cbSelect.getSelectionModel().selectFirst();
     }
 
-    public Integer[][] solution() {
+    public ArrayList<Object> solution() {
         Node node;
+        ArrayList<Object> temp = new ArrayList<>();
         int selection = cbSelect.getSelectionModel().getSelectedIndex();
         switch (selection){
             case 1 -> {
                 BFS bfs = new BFS(map);
                 node = bfs.getSolution();
-                return node.getMap();
+                temp.add(node);
+                temp.add("Meta - Amplitud");
+                return temp;
             }
             case 2 -> {
                 CUS cus = new CUS(map);
                 node = cus.getSolution();
-                return node.getMap();
+                temp.add(node);
+                temp.add("Meta - Costo");
+                return temp;
             }
             case 3 -> {
                 DFS dfs = new DFS(map);
                 node = dfs.getSolution();
-                return node.getMap();
+                temp.add(node);
+                temp.add("Meta - Profundidad evitando ciclos");
+                return temp;
             }
             case 4 -> {
                 Greedy greedy = new Greedy(map);
                 node = greedy.getSolution();
-                return node.getMap();
+                temp.add(node);
+                temp.add("Meta - Avara");
+                return temp;
             }
             case 5 -> {
                 AStart aStart = new AStart(map);
                 node = aStart.getSolution();
                 node.getMap();
+                temp.add(node);
+                temp.add("Meta - A*");
+                return temp;
             }
         }
         return null;
@@ -147,9 +160,12 @@ public class MapController implements Initializable {
 
     @FXML
     public void onClick(ActionEvent event) throws FileNotFoundException {
-        Integer[][] temp = solution();
+        ArrayList<Object> temp = solution();
+        Node node = (Node) temp.get(0);
+        Integer[][] mapMeta = node.getMap();
+        String title = temp.get(1).toString();
         if (event.getSource() == bStart && temp != null) {
-            ArrayList<Tile> tiles = loadTile(temp);
+            ArrayList<Tile> tiles = loadTile(mapMeta);
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/solution.fxml"));
                 Parent root = loader.load();
@@ -157,7 +173,7 @@ public class MapController implements Initializable {
                 solutionController.loadMap(tiles);
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
-                stage.setTitle("Meta");
+                stage.setTitle(title);
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setScene(scene);
                 stage.setResizable(false);
