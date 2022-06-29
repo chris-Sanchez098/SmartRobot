@@ -1,11 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="534.0" prefWidth="558.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.SolutionController">
+<AnchorPane prefHeight="534.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.SolutionController">
    <children>
-      <Pane fx:id="paneSolution" layoutX="23.0" layoutY="14.0" prefHeight="500.0" prefWidth="500.0" />
+      <Pane fx:id="paneSolution" layoutX="14.0" layoutY="17.0" prefHeight="500.0" prefWidth="500.0" />
+      <Pane layoutX="529.0" layoutY="14.0" prefHeight="494.0" prefWidth="201.0" style="-fx-border-color: GRAY;">
+         <children>
+            <Label layoutX="55.0" layoutY="14.0" text="Estadisticas">
+               <font>
+                  <Font name="DejaVu Sans Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="19.0" layoutY="47.0" text="Profundidad:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="19.0" layoutY="69.0" text="Costo:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="19.0" layoutY="91.0" text="Tiempo:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="lDeep" layoutX="115.0" layoutY="48.0" prefHeight="16.0" prefWidth="80.0" />
+            <Label fx:id="lTIme" layoutX="108.0" layoutY="92.0" prefHeight="16.0" prefWidth="80.0" />
+            <Label fx:id="lCost" layoutX="115.0" layoutY="70.0" prefHeight="16.0" prefWidth="80.0" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

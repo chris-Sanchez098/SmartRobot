@@ -1,18 +1,17 @@
 package views;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-
-import java.io.FileNotFoundException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 public class SolutionController {
     @FXML
     private Pane paneSolution;
-    private ArrayList<Tile> tiles;
+    @FXML
+    private Label lDeep;
+    @FXML
+    private Label lCost;
 
     public void loadMap(ArrayList<Tile> tiles) {
         for (int i = 0; i < tiles.size(); i++) {
@@ -21,6 +20,11 @@ public class SolutionController {
             tile.setTranslateY(50 * (i / 10));
             paneSolution.getChildren().add(tile);
         }
+    }
+
+    public void updateLabel(String deep, String cost) {
+        lDeep.setText(deep);
+        lCost.setText(cost);
     }
 
 }

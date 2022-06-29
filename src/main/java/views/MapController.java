@@ -149,7 +149,6 @@ public class MapController implements Initializable {
             case 5 -> {
                 AStart aStart = new AStart(map);
                 node = aStart.getSolution();
-                node.getMap();
                 temp.add(node);
                 temp.add("Meta - A*");
                 return temp;
@@ -162,8 +161,10 @@ public class MapController implements Initializable {
     public void onClick(ActionEvent event) throws FileNotFoundException {
         ArrayList<Object> temp = solution();
         Node node = (Node) temp.get(0);
-        Integer[][] mapMeta = node.getMap();
+        Integer deep = node.getDeep();
+        Integer cost = node.getCost();
         String title = temp.get(1).toString();
+        Integer[][] mapMeta = node.getMap();
         if (event.getSource() == bStart && temp != null) {
             ArrayList<Tile> tiles = loadTile(mapMeta);
             try {
@@ -171,6 +172,7 @@ public class MapController implements Initializable {
                 Parent root = loader.load();
                 SolutionController solutionController = loader.getController();
                 solutionController.loadMap(tiles);
+                solutionController.updateLabel(deep + "", cost + "" );
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setTitle(title);
