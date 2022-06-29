@@ -12,6 +12,8 @@ public class SolutionController {
     private Label lDeep;
     @FXML
     private Label lCost;
+    @FXML
+    private Label lTime;
 
     public void loadMap(ArrayList<Tile> tiles) {
         for (int i = 0; i < tiles.size(); i++) {
@@ -22,9 +24,10 @@ public class SolutionController {
         }
     }
 
-    public void updateLabel(String deep, String cost) {
+    public void updateLabel(String deep, String cost, String time) {
         lDeep.setText(deep);
         lCost.setText(cost);
+        lTime.setText(time);
     }
 
 }

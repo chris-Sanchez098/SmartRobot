@@ -31,7 +31,7 @@
                </font>
             </Label>
             <Label fx:id="lDeep" layoutX="115.0" layoutY="48.0" prefHeight="16.0" prefWidth="80.0" />
-            <Label fx:id="lTIme" layoutX="108.0" layoutY="92.0" prefHeight="16.0" prefWidth="80.0" />
+            <Label fx:id="lTime" layoutX="108.0" layoutY="92.0" prefHeight="16.0" prefWidth="80.0" />
             <Label fx:id="lCost" layoutX="115.0" layoutY="70.0" prefHeight="16.0" prefWidth="80.0" />
          </children>
       </Pane>

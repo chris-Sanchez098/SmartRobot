@@ -11,6 +11,8 @@ public class Node {
 
     private Integer heuristic = 0;
     private Integer[][] goals;
+    private Integer nodes = 0;
+    private Double time = 0.0;
 
     public Node(Integer[][] map, Node parent, Integer deep, Integer cost, Integer item, Integer nav, Integer[] place, Integer[][] goals) {
         this.map = map;
@@ -72,6 +74,22 @@ public class Node {
 
     public Integer[][] getGoals() {
         return goals;
+    }
+
+    public Integer getNodes() {
+        return nodes;
+    }
+
+    public Double getTime() {
+        return time;
+    }
+
+    public void setNodes(Integer nodes) {
+        this.nodes = nodes;
+    }
+
+    public void setTime(Double time) {
+        this.time = time;
     }
 
     public Boolean possibleMove(Integer direction) {

@@ -119,22 +119,22 @@ public class MapController implements Initializable {
         int selection = cbSelect.getSelectionModel().getSelectedIndex();
         switch (selection){
             case 1 -> {
-                BFS bfs = new BFS(map);
-                node = bfs.getSolution();
+                Breadth breadth = new Breadth(map);
+                node = breadth.getSolution();
                 temp.add(node);
                 temp.add("Meta - Amplitud");
                 return temp;
             }
             case 2 -> {
-                CUS cus = new CUS(map);
-                node = cus.getSolution();
+                Cost cost = new Cost(map);
+                node = cost.getSolution();
                 temp.add(node);
                 temp.add("Meta - Costo");
                 return temp;
             }
             case 3 -> {
-                DFS dfs = new DFS(map);
-                node = dfs.getSolution();
+                Deep deep = new Deep(map);
+                node = deep.getSolution();
                 temp.add(node);
                 temp.add("Meta - Profundidad evitando ciclos");
                 return temp;
@@ -163,6 +163,8 @@ public class MapController implements Initializable {
         Node node = (Node) temp.get(0);
         Integer deep = node.getDeep();
         Integer cost = node.getCost();
+        Double time = node.getTime();
+        Integer nodes = node.getNodes();
         String title = temp.get(1).toString();
         Integer[][] mapMeta = node.getMap();
         if (event.getSource() == bStart && temp != null) {
@@ -172,7 +174,7 @@ public class MapController implements Initializable {
                 Parent root = loader.load();
                 SolutionController solutionController = loader.getController();
                 solutionController.loadMap(tiles);
-                solutionController.updateLabel(deep + "", cost + "" );
+                solutionController.updateLabel(deep + "", cost + "", time + " seg" );
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setTitle(title);

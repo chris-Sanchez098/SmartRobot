@@ -11,6 +11,8 @@ public class Greedy {
     }
 
     public Node getSolution() {
+        long timeI = System.currentTimeMillis();
+        int nodes = 0;
         PriorityQueue<Node> pq = new PriorityQueue<>(new NodeHeuristComparator());
         Node nodeInitial = new Node(map, null, 0, 0, 0, 0, Node.initialPlace(map), Node.findGoals(map,2));
         pq.add(nodeInitial);
@@ -20,8 +22,12 @@ public class Greedy {
             }
             Node node = pq.poll();
             if (node.getItem() > 1) {
+                long timeF = System.currentTimeMillis();
+                node.setTime((timeF - timeI)/1000.0);
+                node.setNodes(nodes);
                 return node;
             }
+            nodes++;
             for (int i = 1; i < 5; i++) {
                 if (node.possibleMove(i) && !node.isAncestor(i)) {
                     pq.add(node.nextNodeH(i));
