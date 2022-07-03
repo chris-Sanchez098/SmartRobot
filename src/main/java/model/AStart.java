@@ -15,7 +15,7 @@ public class AStart {
         long timeI = System.currentTimeMillis();
         int nodes = 0;
         PriorityQueue<Node> pq = new PriorityQueue<>(new NodeCHComparator());
-        Node nodeInitial = new Node(map, null, 0, 0, 0, 0, Node.initialPlace(map), Node.findGoals(map,2));
+        Node nodeInitial = new Node(map ,Node.initialPlace(map), Node.findGoals(map,2));
         pq.add(nodeInitial);
         while (true) {
             if (!Objects.nonNull(pq.peek())) {
@@ -31,7 +31,7 @@ public class AStart {
             nodes++;
             for (int i = 1; i < 5; i++) {
                 if (node.possibleMove(i)  && !node.isFather(i)) {
-                    pq.add(node.nextNodeH(i));
+                    pq.add(new Node(node, i));
                 }
             }
         }

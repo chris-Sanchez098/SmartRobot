@@ -14,7 +14,7 @@ public class Deep {
         long timeI = System.currentTimeMillis();
         int nodes = 0;
         Stack<Node> stack = new Stack<>();
-        Node nodeInitial = new Node(map, null, 0, 0, 0, 0, Node.initialPlace(map));
+        Node nodeInitial = new Node(map ,Node.initialPlace(map), null);
         stack.push(nodeInitial);
         while (true) {
             if (!Objects.nonNull(stack.peek())) {
@@ -28,9 +28,9 @@ public class Deep {
                 return node;
             }
             nodes++;
-            for (int i = 1; i < 5; i++) {
+            for (int i = 4; i > 0; i--) {
                 if (node.possibleMove(i) && !node.isAncestor(i)) {
-                    stack.push(node.nextNode(i));
+                    stack.push(new Node(node, i));
                 }
             }
         }

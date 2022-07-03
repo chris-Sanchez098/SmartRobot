@@ -14,7 +14,7 @@ public class Cost {
         long timeI = System.currentTimeMillis();
         int nodes = 0;
         PriorityQueue<Node> pq = new PriorityQueue<>(new NodeCostComparator());
-        Node nodeInitial = new Node(map, null, 0, 0, 0, 0, Node.initialPlace(map));
+        Node nodeInitial = new Node(map ,Node.initialPlace(map), null);
         pq.add(nodeInitial);
         while (true) {
             if (!Objects.nonNull(pq.peek())) {
@@ -30,7 +30,7 @@ public class Cost {
             nodes++;
             for (int i = 1; i < 5; i++) {
                 if (node.possibleMove(i) && !node.isFather(i)) {
-                    pq.add(node.nextNode(i));
+                    pq.add(new Node(node, i));
                 }
             }
         }

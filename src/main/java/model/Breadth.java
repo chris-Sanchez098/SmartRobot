@@ -14,7 +14,7 @@ public class Breadth {
         long timeI = System.currentTimeMillis();
         int nodes = 0;
         Queue<Node> queue = new ArrayDeque<>();
-        Node nodeInitial = new Node(map, null, 0, 0, 0, 0, Node.initialPlace(map));
+        Node nodeInitial = new Node(map ,Node.initialPlace(map), null);
         queue.add(nodeInitial);
         while (true) {
             if (queue.isEmpty()) {
@@ -30,7 +30,7 @@ public class Breadth {
             nodes++;
             for (int i = 1; i < 5; i++) {
                 if (node.possibleMove(i) && !node.isFather(i)) {
-                    queue.add(node.nextNode(i));
+                    queue.add(new Node(node, i));
                 }
             }
         }
