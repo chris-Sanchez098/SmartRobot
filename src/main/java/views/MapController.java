@@ -69,6 +69,7 @@ public class MapController implements Initializable {
 
     /**
      * Convert Integer[][] to ArrayList<Tile>
+     *
      * @param map Integer[][]
      * @return ArrayList<Tile>
      * @throws FileNotFoundException exception
@@ -86,9 +87,12 @@ public class MapController implements Initializable {
 
     /**
      * Update map
+     *
      * @throws FileNotFoundException exception
      */
     public void updateMap() throws FileNotFoundException {
+        ObservableList<javafx.scene.Node> tilesMap = pane.getChildren();
+        pane.getChildren().removeAll(tilesMap);
         loadMatriz();
         ArrayList<Tile> tiles = loadTile(map);
         for (int i = 0; i < tiles.size(); i++) {
@@ -117,7 +121,7 @@ public class MapController implements Initializable {
     public void initCB() {
         ObservableList<String> option =
                 FXCollections.observableArrayList("Selection", "Amplitud", "Costo uniforme",
-                        "Profundidad evitando ciclos","Avara","A*");
+                        "Profundidad evitando ciclos", "Avara", "A*");
         cbSelect.setItems(option);
         cbSelect.getSelectionModel().selectFirst();
     }
@@ -126,7 +130,7 @@ public class MapController implements Initializable {
         Node node;
         ArrayList<Object> temp = new ArrayList<>();
         int selection = cbSelect.getSelectionModel().getSelectedIndex();
-        switch (selection){
+        switch (selection) {
             case 0 -> {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
@@ -175,7 +179,6 @@ public class MapController implements Initializable {
 
 
     /**
-     *
      * @param node goal node
      * @return String with all steps to reach the goal
      */
@@ -189,26 +192,25 @@ public class MapController implements Initializable {
         }
         Collections.reverse(arrPlaces);
         Integer[] temPlace = place;
+        System.out.println("Place init: "+ temPlace[0] + "-" + temPlace[1]);
         for (Integer[] step : arrPlaces) {
-            if((Objects.equals(temPlace[0] , step[0])) && (Objects.equals(temPlace[1], step[1]))) {
-                out.append("Inicio casilla ").append(temPlace[0]).append(" ").append(temPlace[1]).append("\n");
+            if ((Objects.equals(temPlace[0], step[0])) && (Objects.equals(temPlace[1], step[1]))) {
+                out.append("Inicio casilla ").append(temPlace[0]).append(",").append(temPlace[1]).append("\n");
             }
-            if (temPlace[0] + 1 == step[0]) { // down
-                out.append("Down ");
-                temPlace = step;
+            if ((temPlace[0] + 1) == step[0]) { // down
+                out.append("- Down (" + step[0] + "," + step[1] + ") ");
             }
-            if (temPlace[0] - 1 == step[0]) { // up
-                out.append("Up ");
-                temPlace = step;
+            if ((temPlace[0] - 1) == step[0]) { // up
+                out.append("- Up (" + step[0] + "," + step[1] + ") ");
             }
-            if (temPlace[1] + 1 == step[1]) { // right
-                out.append("Right ");
-                temPlace = step;
+            if ((temPlace[1] + 1) == step[1]) { // right
+                out.append("- Right (" + step[0] + "," + step[1] + ") ");
             }
-            if (temPlace[1] - 1 == step[1]) { // left
-                out.append("Left ");
-                temPlace = step;
+            if ((temPlace[1] - 1) == step[1]) { // left
+                out.append("- Left (" + step[0] + "," + step[1] + ") ");
             }
+            temPlace = step;
+            System.out.println(step[0] + "-" + step[1]);
         }
         return out.toString();
     }
@@ -231,7 +233,7 @@ public class MapController implements Initializable {
                 Parent root = loader.load();
                 SolutionController solutionController = loader.getController();
                 solutionController.loadMap(tiles);
-                solutionController.updateLabel(deep + "", cost + "", time + " seg",steps, nodes+"");
+                solutionController.updateLabel(deep + "", cost + "", time + " seg", steps, nodes + "");
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setTitle(title);
@@ -251,6 +253,7 @@ public class MapController implements Initializable {
             alert.showAndWait();
         }
     }
+
     public void onClickChange() throws FileNotFoundException {
         updateMap();
     }
