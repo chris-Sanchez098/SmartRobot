@@ -28,7 +28,7 @@ public class Greedy {
             }
             nodes++;
             for (int i = 1; i < 5; i++) {
-                if (node.possibleMove(i) && !node.isAncestor(i)) {
+                if (node.possibleMove(i) && !node.isFather(i)) {
                     pq.add(new Node(node, i));
                 }
             }

@@ -29,9 +29,6 @@ public class Node {
         this.place = place;
         this.nav = 0;
         this.goals = goals;
-        if (goals != null) {
-            this.heuristic = setHeuristic();
-        }
     }
 
     /**
