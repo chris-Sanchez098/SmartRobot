@@ -14,7 +14,8 @@ public class Greedy {
         long timeI = System.currentTimeMillis();
         int nodes = 0;
         PriorityQueue<Node> pq = new PriorityQueue<>(new NodeHeuristComparator());
-        Node nodeInitial = new Node(map ,Node.initialPlace(map), Node.findGoals(map,2));        pq.add(nodeInitial);
+        Node nodeInitial = new Node(map ,Node.initialPlace(map), Node.findGoals(map,2));
+        pq.add(nodeInitial);
         while (true) {
             if (!Objects.nonNull(pq.peek())) {
                 return null;
