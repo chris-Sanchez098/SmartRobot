@@ -2,6 +2,7 @@ package views;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 
@@ -14,6 +15,10 @@ public class SolutionController {
     private Label lCost;
     @FXML
     private Label lTime;
+    @FXML
+    private Label lNodos;
+    @FXML
+    private TextArea textArea;
 
     public void loadMap(ArrayList<Tile> tiles) {
         for (int i = 0; i < tiles.size(); i++) {
@@ -24,10 +29,13 @@ public class SolutionController {
         }
     }
 
-    public void updateLabel(String deep, String cost, String time) {
+    public void updateLabel(String deep, String cost, String time, String path, String nodos) {
         lDeep.setText(deep);
         lCost.setText(cost);
         lTime.setText(time);
+        lNodos.setText(nodos);
+        textArea.setText(path);
+        textArea.setWrapText(true);
     }
 
 }
