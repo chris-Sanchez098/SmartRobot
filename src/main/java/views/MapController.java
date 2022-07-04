@@ -192,7 +192,6 @@ public class MapController implements Initializable {
         }
         Collections.reverse(arrPlaces);
         Integer[] temPlace = place;
-        System.out.println("Place init: "+ temPlace[0] + "-" + temPlace[1]);
         for (Integer[] step : arrPlaces) {
             if ((Objects.equals(temPlace[0], step[0])) && (Objects.equals(temPlace[1], step[1]))) {
                 out.append("Inicio casilla ").append(temPlace[0]).append(",").append(temPlace[1]).append("\n");
@@ -210,7 +209,6 @@ public class MapController implements Initializable {
                 out.append("- Left (" + step[0] + "," + step[1] + ") ");
             }
             temPlace = step;
-            System.out.println(step[0] + "-" + step[1]);
         }
         return out.toString();
     }

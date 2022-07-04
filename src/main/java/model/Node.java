@@ -326,7 +326,7 @@ public class Node {
         if (map[goals[1][0]][goals[1][1]] == 5) {
             auxHeuristic += manhattan(1);
         }
-        return auxHeuristic;
+        return (int)Math.ceil(auxHeuristic * 0.5294117647) ;
     }
 
     /**
