@@ -9,12 +9,12 @@ El robot puede moverse arriba, abajo, izquierda y derecha.
 * La nave 1 está cargada con combustible para 10 casillas mientras que la nave 2 para 20 casillas.
 
 ## Implementación
-Se aplicaron algorimos de busqueda informada y no informada:
-* **Busqueda no informada:**
+Se aplicaron algoritmos de búsqueda informada y no informada:
+* **Búsqueda no informada:**
     * Amplitud (Breadth First Search).
     * Costo uniforme (Uniform Cost Search).
     * Profundidad de evitando ciclos (Depth First Search - avoiding cycles).
-* **Busqueda informada:**
+* **Búsqueda informada:**
     * Avara (Greedy Search).
     * A* (A star).
 
