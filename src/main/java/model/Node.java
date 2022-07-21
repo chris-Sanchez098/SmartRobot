@@ -294,7 +294,7 @@ public class Node {
         for (int i = 0; i < 10; i++) {
             System.arraycopy(map[i], 0, nextMap[i], 0, 10);
         }
-        nextMap[place[0]][place[1]] = parent == null ? 0 : (parent.getMap()[place[0]][place[1]] < 5 && parent.getNav() > 1) ? parent.getMap()[place[0]][place[1]] : 0;
+        nextMap[place[0]][place[1]] = parent == null ? 0 : (parent.getMap()[place[0]][place[1]] < 5 && parent.getNav() > 1 || parent.getMap()[place[0]][place[1]] == 6) ? parent.getMap()[place[0]][place[1]] : 0;
         nextMap[nextPlace[0]][nextPlace[1]] = 2;
         return nextMap;
     }
