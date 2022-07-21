@@ -42,11 +42,11 @@ public class Node {
         this.parent = parent;
         this.goals = parent.getGoals();
         this.deep = parent.getDeep() + 1;
-        this.cost = parent.nextCost(direction, nextPlace);
-        this.map = parent.nextMap(direction, nextPlace);
-        this.item = parent.nextItem(direction, nextPlace);
+        this.cost = parent.nextCost(nextPlace);
+        this.map = parent.nextMap(nextPlace);
+        this.item = parent.nextItem(nextPlace);
         this.place = nextPlace;
-        this.nav = parent.nextNav(direction, nextPlace);
+        this.nav = parent.nextNav(nextPlace);
         if (goals != null) {
             this.heuristic = setHeuristic();
         }
@@ -195,7 +195,7 @@ public class Node {
         if (parent == null) {
             return false;
         }
-        if (nav == 10 && parent.getNav() != 11 || nav == 20 && parent.getNav() == 0 || item == 1 && parent.getItem() == 0) {
+        if (nav == 10 && parent.getNav() != 11 || nav == 20 || item == 1 && parent.getItem() == 0) {
             return false;
         } else {
             return nextPlace[0] == parent.getPlace()[0] && nextPlace[1] == parent.getPlace()[1];
@@ -249,21 +249,19 @@ public class Node {
     }
 
     /**
-     * @param direction 1 right, 2 left, 3 up and other down
      * @param nextPlace position on next move
      * @return value of cost on next move
      */
-    public Integer nextCost(Integer direction, Integer[] nextPlace) {
+    public Integer nextCost(Integer[] nextPlace) {
         Integer nextCost = calCost(map[nextPlace[0]][nextPlace[1]]);
         return nextCost + cost;
     }
 
     /**
-     * @param direction 1 right, 2 left, 3 up and other down
      * @param nextPlace position on next move
      * @return number of items on next move
      */
-    public Integer nextItem(Integer direction, Integer[] nextPlace) {
+    public Integer nextItem(Integer[] nextPlace) {
         if (map[nextPlace[0]][nextPlace[1]] == 5) {
             return item + 1;
         }
@@ -271,29 +269,27 @@ public class Node {
     }
 
     /**
-     * @param direction 1 right, 2 left, 3 up and other down
      * @param nextPlace position on next move
      * @return fuel on next move
      */
-    public Integer nextNav(Integer direction, Integer[] nextPlace) {
+    public Integer nextNav(Integer[] nextPlace) {
         if (nav > 0) {
             return nav - 1;
         }
         if (map[nextPlace[0]][nextPlace[1]] == 3) {
-            return 20;
+            return 10;
         }
         if (map[nextPlace[0]][nextPlace[1]] == 4) {
-            return 10;
+            return 20;
         }
         return 0;
     }
 
     /**
-     * @param direction 1 right, 2 left, 3 up and other down
      * @param nextPlace position on next move
      * @return map after movement
      */
-    public Integer[][] nextMap(Integer direction, Integer[] nextPlace) {
+    public Integer[][] nextMap(Integer[] nextPlace) {
         Integer[][] nextMap = new Integer[10][10];
         for (int i = 0; i < 10; i++) {
             System.arraycopy(map[i], 0, nextMap[i], 0, 10);
@@ -302,7 +298,6 @@ public class Node {
         nextMap[nextPlace[0]][nextPlace[1]] = 2;
         return nextMap;
     }
-
 
     public void viewMap() {
         for (int i = 0; i < 10; i++) {
@@ -320,11 +315,10 @@ public class Node {
      */
     private Integer setHeuristic() {
         int auxHeuristic = 0;
-        if (map[goals[0][0]][goals[0][1]] == 5) {
-            auxHeuristic += manhattan(0);
-        }
-        if (map[goals[1][0]][goals[1][1]] == 5) {
-            auxHeuristic += manhattan(1);
+        for(int i = 0; i < goals.length ; i++){
+            if (map[goals[i][0]][goals[i][1]] == 5) {
+                auxHeuristic += manhattan(i);
+            }
         }
         return (int)Math.ceil(auxHeuristic * 0.5294117647) ;
     }
